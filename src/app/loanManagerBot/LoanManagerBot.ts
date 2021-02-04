@@ -8,7 +8,7 @@ import WelcomeCard from "./dialogs/WelcomeDialog";
 import express = require("express");
 // Initialize debug logging module
 const log = debug("msteams");
-
+console.log(process.env.MICROSOFT_APP_ID);
 /**
  * Implementation for Loan Manager Bot
  */

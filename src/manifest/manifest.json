@@ -1,35 +1,43 @@
 {
-  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.8/MicrosoftTeams.schema.json",
-  "manifestVersion": "1.8",
-  "id": "{{APPLICATION_ID}}",
-  "version": "{{VERSION}}",
-  "packageName": "{{PACKAGE_NAME}}",
+  "$schema": "https://github.com/OfficeDev/microsoft-teams-app-schema/blob/preview/DevPreview/MicrosoftTeams.schema.json",
+  "manifestVersion": "devPreview",
+  "version": "0.0.1",
+  "showLoadingIndicator": true,
+  "id": "6f6b9cc0-66fb-11eb-aa24-ebd8fcacd213",
+  "packageName": "loan",
   "developer": {
     "name": "Mck",
-    "websiteUrl": "https://{{HOSTNAME}}",
-    "privacyUrl": "https://{{HOSTNAME}}/privacy.html",
-    "termsOfUseUrl": "https://{{HOSTNAME}}/tou.html"
+    "websiteUrl": "https://.azurewebsites.net",
+    "privacyUrl": "https://.azurewebsites.net/privacy.html",
+    "termsOfUseUrl": "https://.azurewebsites.net/tou.html"
+  },
+  "icons": {
+    "color": "icon-color.png",
+    "outline": "icon-outline.png"
   },
   "name": {
     "short": "Loan Manager",
     "full": "Loan Manager"
   },
   "description": {
-    "short": "TODO: add short description here",
-    "full": "TODO: add full description here"
-  },
-  "icons": {
-    "outline": "icon-outline.png",
-    "color": "icon-color.png"
+    "short": "Loan Application Manager",
+    "full": "A suite of tools used for loan application workflow"
   },
   "accentColor": "#D85028",
   "configurableTabs": [
     {
-      "configurationUrl": "https://{{HOSTNAME}}/loanManagerTab/config.html?name={loginHint}&tenant={tid}&group={groupId}&theme={theme}",
+      "configurationUrl": "https://5074b31c03d1.ngrok.io/loanManagerTab/config.html?name={loginHint}&tenant={tid}&group={groupId}&theme={theme}",
       "canUpdateConfiguration": true,
       "scopes": [
         "team",
         "groupchat"
+      ],
+      "context": [
+        "channelTab",
+        "privateChatTab",
+        "meetingSidePanel",
+        "meetingDetailsTab",
+        "meetingChatTab"
       ]
     }
   ],
@@ -37,7 +45,7 @@
     {
       "entityId": "11f235d0-66fc-11eb-aa24-ebd8fcacd213",
       "name": "Loan Manager Bot",
-      "contentUrl": "https://{{HOSTNAME}}/loanManagerBot/loanManagerBot.html",
+      "contentUrl": "https://5074b31c03d1.ngrok.io/loanManagerBot/loanManagerBot.html",
       "scopes": [
         "personal"
       ]
@@ -45,52 +53,97 @@
   ],
   "bots": [
     {
-      "botId": "{{MICROSOFT_APP_ID}}",
-      "needsChannelSelector": true,
-      "isNotificationOnly": false,
+      "botId": "919cb135-21b2-41f0-87bc-86313157543c",
       "scopes": [
-        "team",
         "personal",
+        "team",
         "groupchat"
       ],
       "commandLists": [
         {
           "scopes": [
-            "team",
             "personal"
           ],
           "commands": [
             {
               "title": "Help",
-              "description": "Shows help information"
+              "description": "Show help information"
+            }
+          ]
+        },
+        {
+          "scopes": [
+            "team"
+          ],
+          "commands": [
+            {
+              "title": "Help",
+              "description": "Show help information"
+            }
+          ]
+        },
+        {
+          "scopes": [
+            "groupchat"
+          ],
+          "commands": [
+            {
+              "title": "Help",
+              "description": "Show help information"
             }
           ]
         }
       ],
       "supportsFiles": true,
+      "isNotificationOnly": false,
       "supportsCalling": true,
       "supportsVideo": true
     }
   ],
-  "connectors": [],
   "composeExtensions": [
     {
-      "botId": "{{MICROSOFT_APP_ID}}",
+      "botId": "919cb135-21b2-41f0-87bc-86313157543c",
       "canUpdateConfiguration": true,
       "commands": [
         {
-          "id": "requestApprovalMessageExtension",
-          "title": "Request Approval",
-          "description": "Add a clever description here",
+          "id": "getDocument",
+          "type": "query",
+          "title": "Get an application document",
+          "description": "Get a submitted document from an application",
           "initialRun": true,
+          "fetchTask": false,
+          "context": [
+            "commandBox",
+            "compose"
+          ],
           "parameters": [
             {
-              "name": "parameter",
-              "description": "Description of the parameter",
-              "title": "Parameter"
+              "name": "applicationId",
+              "title": "Application Id",
+              "description": "Unique id associated with an existing application",
+              "inputType": "text"
             }
+          ]
+        },
+        {
+          "id": "getUser",
+          "type": "query",
+          "title": "Look up a user",
+          "description": "Get a snapshot of a user using an id",
+          "initialRun": true,
+          "fetchTask": false,
+          "context": [
+            "commandBox",
+            "compose"
           ],
-          "type": "query"
+          "parameters": [
+            {
+              "name": "userId",
+              "title": "User ID",
+              "description": "Unique id associated with a user",
+              "inputType": "text"
+            }
+          ]
         }
       ]
     }
@@ -100,8 +153,6 @@
     "messageTeamMembers"
   ],
   "validDomains": [
-    "{{HOSTNAME}}"
-  ],
-  "showLoadingIndicator": true,
-  "isFullScreen": false
+    "5074b31c03d1.ngrok.io"
+  ]
 }
