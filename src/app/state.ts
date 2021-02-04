@@ -1,3 +1,29 @@
+export interface Person {
+  gender: string;
+  name: Name;
+  location: Location;
+  dob: {
+    date: string;
+    age: number;
+  };
+  registered: {
+    date: string;
+    age: number;
+  };
+  phone: string;
+  cell: string;
+  id: {
+    name: string;
+    value: any;
+  };
+  picture: {
+    large: string;
+    medium: string;
+    thumbnail: string;
+  };
+  nat: string;
+}
+
 export interface Location {
   street: {
     number: number;
@@ -595,3 +621,11 @@ export default [
     nat: "NL",
   },
 ];
+
+export const formatName = (name: Name) => {
+  return `${name.first} ${name.last}`;
+};
+
+export const formatAddress = (location: Location) => {
+  return `${location.street.number} ${location.street.name}, ${location.city}, ${location.country}`;
+};

@@ -3,19 +3,12 @@ import {
   ShorthandCollection,
   Table,
   TableRowProps,
+  Header,
 } from "@fluentui/react-northstar";
-import state, { Location, Name } from "../../state";
+import state, { formatName, formatAddress, Location, Name } from "../../state";
 
 const header = {
   items: ["Address", "Applicant", "Start Date"],
-};
-
-const formatAddress = (location: Location) => {
-  return `${location.street.number} ${location.street.name}, ${location.city}, ${location.country}`;
-};
-
-const formatName = (name: Name) => {
-  return `${name.title} ${name.first} ${name.last}`;
 };
 
 const rows: ShorthandCollection<TableRowProps> = state
@@ -27,11 +20,16 @@ const rows: ShorthandCollection<TableRowProps> = state
       formatName(person.name),
       new Date(person.registered.date).toLocaleDateString(),
     ],
-    onClick: () => alert(person.login.uuid),
+    onClick: () => {
+      window.location.search = `?application=${person.login.uuid}`;
+    },
   }));
 
 const ApplicationsTable = () => (
-  <Table header={header} rows={rows} aria-label="Static table" />
+  <div>
+    <Header as="h3" content="Current Applications" />
+    <Table header={header} rows={rows} aria-label="Static table" />
+  </div>
 );
 
 export default ApplicationsTable;
