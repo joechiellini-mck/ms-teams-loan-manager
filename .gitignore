@@ -12,3 +12,7 @@ connectors.json
 
 # do not include dist files
 dist
+
+# IDE
+.vscode
+.vscode/*
