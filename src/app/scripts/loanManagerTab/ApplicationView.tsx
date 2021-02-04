@@ -12,6 +12,7 @@ import {
   Segment,
   Header,
   Grid,
+  FilesPdfIcon,
 } from "@fluentui/react-northstar";
 import { Person, formatName } from "../../state";
 
@@ -76,12 +77,23 @@ const ApplicationView = (props: IApplicationViewProps) => {
         content={
           <div>
             <Header as="h3" content="Documents" />
-            <Attachment icon={<WordColorIcon />} header="MeetingNotes.docx" />
-            <Attachment icon={<ExcelColorIcon />} header="Budget.xlsx" />
-            <Attachment
-              icon={<PowerPointColorIcon />}
-              header="Presentation.pptx"
-            />
+            <Flex space="between" column>
+              <Attachment
+                icon={<WordColorIcon />}
+                description={`${(Math.random() * 100).toFixed(0)} Kb`}
+                header="1099.docx"
+              />
+              <Attachment
+                icon={<FilesPdfIcon />}
+                description={`${(Math.random() * 100).toFixed(0)} Kb`}
+                header="Proposal.pdf"
+              />
+              <Attachment
+                icon={<FilesPdfIcon />}
+                description={`${(Math.random() * 100).toFixed(0)} Kb`}
+                header="Budget.pdf"
+              />
+            </Flex>
           </div>
         }
         styles={{
