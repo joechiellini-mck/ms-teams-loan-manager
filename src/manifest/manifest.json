@@ -1,15 +1,15 @@
 {
-  "$schema": "https://github.com/OfficeDev/microsoft-teams-app-schema/blob/preview/DevPreview/MicrosoftTeams.schema.json",
-  "manifestVersion": "devPreview",
+  "$schema": "https://github.com/OfficeDev/microsoft-teams-app-schema/blob/master/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.8",
   "version": "0.0.1",
   "showLoadingIndicator": true,
   "id": "6f6b9cc0-66fb-11eb-aa24-ebd8fcacd213",
   "packageName": "loan",
   "developer": {
     "name": "Mck",
-    "websiteUrl": "https://.azurewebsites.net",
-    "privacyUrl": "https://.azurewebsites.net/privacy.html",
-    "termsOfUseUrl": "https://.azurewebsites.net/tou.html"
+    "websiteUrl": "https://af630d50cb3d.ngrok.io",
+    "privacyUrl": "https://af630d50cb3d.ngrok.io/privacy.html",
+    "termsOfUseUrl": "https://af630d50cb3d.ngrok.io/tou.html"
   },
   "icons": {
     "color": "icon-color.png",
@@ -26,7 +26,7 @@
   "accentColor": "#D85028",
   "configurableTabs": [
     {
-      "configurationUrl": "https://5074b31c03d1.ngrok.io/loanManagerTab/config.html?name={loginHint}&tenant={tid}&group={groupId}&theme={theme}",
+      "configurationUrl": "https://af630d50cb3d.ngrok.io/loanManagerTab/config.html?name={loginHint}&tenant={tid}&group={groupId}&theme={theme}",
       "canUpdateConfiguration": true,
       "scopes": [
         "team",
@@ -45,7 +45,7 @@
     {
       "entityId": "11f235d0-66fc-11eb-aa24-ebd8fcacd213",
       "name": "Loan Manager Bot",
-      "contentUrl": "https://5074b31c03d1.ngrok.io/loanManagerBot/loanManagerBot.html",
+      "contentUrl": "https://af630d50cb3d.ngrok.io/loanManagerBot/loanManagerBot.html",
       "scopes": [
         "personal"
       ]
@@ -153,6 +153,6 @@
     "messageTeamMembers"
   ],
   "validDomains": [
-    "5074b31c03d1.ngrok.io"
+    "af630d50cb3d.ngrok.io"
   ]
 }

@@ -91,8 +91,8 @@ var config = [
       }),
     ],
     performance: {
-      maxEntrypointSize: 400000,
-      maxAssetSize: 400000,
+      maxEntrypointSize: 1000000,
+      maxAssetSize: 1000000,
       assetFilter: function (assetFilename) {
         return assetFilename.endsWith(".js");
       },

@@ -3,12 +3,20 @@ import {
   Provider,
   Flex,
   Text,
-  Button,
   Header,
+  Segment,
+  Breadcrumb,
 } from "@fluentui/react-northstar";
 import { useState, useEffect } from "react";
 import { useTeams } from "msteams-react-base-component";
 import * as microsoftTeams from "@microsoft/teams-js";
+import ApplicationsTable from "./ApplicationsTable";
+import ApplicationView from "./ApplicationView";
+import state, { Person, formatName } from "../../state";
+
+const getUser = (uuid: string): Person | undefined => {
+  return state.find((person) => person.login.uuid === uuid);
+};
 
 /**
  * Implementation of the Loan Manager content page
@@ -31,41 +39,58 @@ export const LoanManagerTab = () => {
     }
   }, [context]);
 
+  const queryParams: any = new URLSearchParams(window.location.search);
+  const person = getUser(queryParams.get("application"));
+
+  let content: React.ReactNode = null;
+  if (person) {
+    content = <ApplicationView person={person} />;
+  } else {
+    content = <ApplicationsTable />;
+  }
   /**
    * The render() method to create the UI of the tab
    */
   return (
     <Provider theme={theme}>
-      <Flex
-        fill={true}
-        column
-        styles={{
-          padding: ".8rem 0 .8rem .5rem",
-        }}
-      >
-        <Flex.Item>
-          <Header content="This is your tab" />
-        </Flex.Item>
-        <Flex.Item>
-          <div>
-            <div>
-              <Text content={entityId} />
-            </div>
-
-            <div>
-              <Button onClick={() => alert("It worked!")}>
-                A sample button
-              </Button>
-            </div>
-          </div>
-        </Flex.Item>
-        <Flex.Item
-          styles={{
-            padding: ".8rem 0 .8rem .5rem",
-          }}
-        >
-          <Text size="smaller" content="(C) Copyright Mck" />
-        </Flex.Item>
+      <Flex column fill={true}>
+        <Segment
+          color="brand"
+          content={<Header as="h2" content="Loan Manager" />}
+        />
+        <Segment
+          style={{ minHeight: "calc(100vh - 8em)" }}
+          content={
+            <>
+              <Flex.Item>
+                <div>
+                  <div>
+                    {/* <Text content={entityId} /> */}
+                    <Breadcrumb aria-label="breadcrumb">
+                      <Breadcrumb.Item>Home</Breadcrumb.Item>
+                      <Breadcrumb.Divider />
+                      <Breadcrumb.Item>
+                        <Breadcrumb.Link href="/LoanManagerTab">
+                          Applications
+                        </Breadcrumb.Link>
+                      </Breadcrumb.Item>
+                      <Breadcrumb.Divider />
+                      {person && (
+                        <Breadcrumb.Item aria-current="page">
+                          {formatName(person.name)}'s Loan
+                        </Breadcrumb.Item>
+                      )}
+                    </Breadcrumb>
+                  </div>
+                  {content}
+                </div>
+              </Flex.Item>
+              <Flex.Item>
+                <Text size="smaller" content="(C) Copyright Mck" />
+              </Flex.Item>
+            </>
+          }
+        />
       </Flex>
     </Provider>
   );
