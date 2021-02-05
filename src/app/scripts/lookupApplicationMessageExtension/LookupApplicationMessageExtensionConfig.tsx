@@ -8,7 +8,7 @@ import { useTeams } from "msteams-react-base-component";
 /**
  * Implementation of the Loan Manager configuration page
  */
-export const LoanManagerMessageExtensionConfig = () => {
+export const LookupApplicationMessageExtensionConfig = () => {
 
     const [{ inTeams, theme }] = useTeams();
     const [onOrOff, setOnOrOff] = useState<boolean>();
@@ -25,7 +25,7 @@ export const LoanManagerMessageExtensionConfig = () => {
             <Flex fill={true}>
                 <Flex.Item>
                     <div>
-                        <Header content="Loan Manager configuration" />
+                        <Header content="Lookup Application configuration" />
                         <Checkbox
                             label="On or off?"
                             toggle

@@ -3,7 +3,7 @@ import * as debug from "debug";
 import { DialogSet, DialogState } from "botbuilder-dialogs";
 import { StatePropertyAccessor, CardFactory, TurnContext, MemoryStorage, ConversationState, ActivityTypes, TeamsActivityHandler, BotFrameworkAdapter } from "botbuilder";
 import HelpDialog from "./dialogs/HelpDialog";
-import LoanManagerMessageExtension from "../LoanManagerMessageExtension/LoanManagerMessageExtension";
+import LookupApplicationMessageExtension from "../lookupApplicationMessageExtension/LookupApplicationMessageExtension";
 import WelcomeCard from "./dialogs/WelcomeDialog";
 import express = require("express");
 import { MessagingExtensionMiddleware } from "botbuilder-teams-messagingextensions";
@@ -21,9 +21,9 @@ const log = debug("msteams");
 @PreventIframe("/loanManagerBot/loanManagerBot.html")
 export class LoanManagerBot extends TeamsActivityHandler {
     private readonly conversationState: ConversationState;
-    /** Local property for LoanManagerMessageExtension */
-    @MessageExtensionDeclaration("getUser")
-    private _loanManagerMessageExtension: LoanManagerMessageExtension;
+    /** Local property for LookupApplicationMessageExtension */
+    @MessageExtensionDeclaration("lookupApplication")
+    private _lookupApplicationMessageExtension: LookupApplicationMessageExtension;
     private readonly dialogs: DialogSet;
     private dialogState: StatePropertyAccessor<DialogState>;
 
@@ -33,8 +33,8 @@ export class LoanManagerBot extends TeamsActivityHandler {
      */
     public constructor(conversationState: ConversationState) {
         super();
-        // Message extension LoanManagerMessageExtension
-        this._loanManagerMessageExtension = new LoanManagerMessageExtension();
+        // Message extension LookupApplicationMessageExtension
+        this._lookupApplicationMessageExtension = new LookupApplicationMessageExtension();
 
         this.conversationState = conversationState;
         this.dialogState = conversationState.createProperty("dialogState");
@@ -59,9 +59,6 @@ export class LoanManagerBot extends TeamsActivityHandler {
                         await context.sendActivity(`I\'m terribly sorry, but my developer hasn\'t trained me to do anything yet...`);
                     }
                     break;
-                // case ActivityTypes.Invoke:
-                //     this._loanManagerMessageExtension.onQuery(context, );
-                //     break;
                 default:
                     break;
             }

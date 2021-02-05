@@ -6,13 +6,13 @@ import { IMessagingExtensionMiddlewareProcessor } from "botbuilder-teams-messagi
 // Initialize debug logging module
 const log = debug("msteams");
 
-@PreventIframe("/loanManagerMessageExtension/config.html")
-export default class LoanManagerMessageExtension implements IMessagingExtensionMiddlewareProcessor {
+@PreventIframe("/lookupApplicationMessageExtension/config.html")
+export default class LookupApplicationMessageExtension implements IMessagingExtensionMiddlewareProcessor {
 
     public async onQuery(context: TurnContext, query: MessagingExtensionQuery): Promise<MessagingExtensionResult> {
-        console.log('QQQQ', query);
+        console.log('context', context);
         switch (query.commandId) {
-            case 'getUser':
+            case 'lookupApplication':
                 return await this.handleGetUser(query);
             default:
                 return Promise.resolve({
@@ -22,71 +22,6 @@ export default class LoanManagerMessageExtension implements IMessagingExtensionM
                 } as MessagingExtensionResult);
                 break;
         }
-
-        // const card = CardFactory.adaptiveCard(
-        //     {
-        //         type: "AdaptiveCard",
-        //         body: [
-        //             {
-        //                 type: "TextBlock",
-        //                 size: "Large",
-        //                 text: "Headline"
-        //             },
-        //             {
-        //                 type: "TextBlock",
-        //                 text: "Description"
-        //             },
-        //             {
-        //                 type: "Image",
-        //                 url: `https://${process.env.HOSTNAME}/assets/icon.png`
-        //             }
-        //         ],
-        //         actions: [
-        //             {
-        //                 type: "Action.Submit",
-        //                 title: "More details",
-        //                 data: {
-        //                     action: "moreDetails",
-        //                     id: "1234-5678"
-        //                 }
-        //             }
-        //         ],
-        //         $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
-        //         version: "1.2"
-        //     });
-        // const preview = {
-        //     contentType: "application/vnd.microsoft.card.thumbnail",
-        //     content: {
-        //         title: "Headline",
-        //         text: "Description",
-        //         images: [
-        //             {
-        //                 url: `https://${process.env.HOSTNAME}/assets/icon.png`
-        //             }
-        //         ]
-        //     }
-        // };
-
-        // if (query.parameters && query.parameters[0] && query.parameters[0].name === "initialRun") {
-        //     // initial run
-
-        //     return Promise.resolve({
-        //         type: "result",
-        //         attachmentLayout: "list",
-        //         attachments: [
-        //             { ...card, preview }
-        //         ]
-        //     } as MessagingExtensionResult);
-        // } else {
-        //     // the rest
-        //     return Promise.resolve({
-        //         type: "result",
-        //         attachmentLayout: "list",
-        //         attachments: [
-        //             { ...card, preview }
-        //         ]
-        //     } as MessagingExtensionResult);
-        // }
     }
 
     async handleGetUser(query): Promise<MessagingExtensionResult> {
@@ -140,7 +75,7 @@ export default class LoanManagerMessageExtension implements IMessagingExtensionM
                             {
                                 type: "Action.OpenUrl",
                                 title: "More details",
-                                url: `${process.env.HOSTNAME}/LoanManagerTab/?application=${user.login.uuid}`
+                                url: encodeURI(`https://teams.microsoft.com/l/entity/${process.env.APPLICATION_ID}/LoanManagerTab?msLaunch=true&enableMobilePage=true&suppressPrompt=true&webUrl=${process.env.HOSTNAME}/LoanManagerTab/?application=61946618-44c0-4ce9-a914-c2e342aa8a0c`)
                             }
                         ],
                         $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
@@ -150,7 +85,7 @@ export default class LoanManagerMessageExtension implements IMessagingExtensionM
                     contentType: "application/vnd.microsoft.card.thumbnail",
                     content: {
                         title: name,
-                        text: email,
+                        text: applicationId,
                         images: [
                             {
                                 url: user.picture.thumbnail
@@ -182,8 +117,8 @@ export default class LoanManagerMessageExtension implements IMessagingExtensionM
     // this is used when canUpdateConfiguration is set to true
     public async onQuerySettingsUrl(context: TurnContext): Promise<{ title: string, value: string }> {
         return Promise.resolve({
-            title: "Loan Manager Configuration",
-            value: `https://${process.env.HOSTNAME}/loanManagerMessageExtension/config.html?name={loginHint}&tenant={tid}&group={groupId}&theme={theme}`
+            title: "Lookup Application Configuration",
+            value: `https://${process.env.HOSTNAME}/lookupApplicationMessageExtension/config.html?name={loginHint}&tenant={tid}&group={groupId}&theme={theme}`
         });
     }
 

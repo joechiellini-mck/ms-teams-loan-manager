@@ -44,9 +44,14 @@ To debug and test the solution locally you use the `serve` Gulp task. This will 
 
 ``` bash
 gulp serve
+
+# in another terminal
+ngrok http 3007 --host-name=localhost:3007
 ```
 
 To debug the code you can append the argument `debug` to the `serve` command as follows. This allows you to step through your code using your preferred code editor.
+
+**NOTE:** See ngrok section below. Run ngrok in a separate terminal and make sure that the manifest.json and .env HOSTNAME are matching.
 
 ``` bash
 gulp serve --debug
@@ -74,6 +79,8 @@ In order to make development locally a great experience it is recommended to use
 
 To use ngrok, it is recommended to use the `gulp ngrok-serve` command, which will read your ngrok settings from the `.env` file and automatically create a correct manifest file and finally start a local development server using the ngrok settings.
 
+DEVELOPER NOTES: Never got this ngrok-serve working locally. Instead it was preferred to run it in a separate terminal to ensure that the HOSTNAME would not have to change when stopping the serve. It is recommended that you sign into a free account to prevent a time limit.
+
 ### Additional build options
 
 You can use the following flags for the `serve`, `ngrok-serve` and build commands:
@@ -99,3 +106,15 @@ SET DEBUG=msteams
 ```
 
 If you are using Microsoft Azure to host your Microsoft Teams app, then you can add `DEBUG` as an Application Setting with the value of `msteams`.
+
+## Configuration
+[Admin Portal](https://portal.office.com/Adminportal/Home?#/users): Used to create user and the organization
+
+[Teams Dashboard](https://admin.teams.microsoft.com/dashboard): Create teams, teams templates, assign users to those teams. Team templates can add apps by default and generate channels with those apps
+
+## Further Reading
+* [Overview](./documentation/overview.md): Project overview and explanation of capabilities
+* [Loan Manager Tab](./tab.md)
+* [Loan Manager Bot](./bot.md)
+* [Lookup Application Message Extension](./message-extension.md)
+* [Box Note](https://mckinsey.ent.box.com/notes/771172156128): Exploration notes about MS Teams and POC

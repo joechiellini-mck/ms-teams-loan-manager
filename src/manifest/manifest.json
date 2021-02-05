@@ -7,9 +7,9 @@
   "packageName": "loan",
   "developer": {
     "name": "Mck",
-    "websiteUrl": "https://af630d50cb3d.ngrok.io",
-    "privacyUrl": "https://af630d50cb3d.ngrok.io/privacy.html",
-    "termsOfUseUrl": "https://af630d50cb3d.ngrok.io/tou.html"
+    "websiteUrl": "https://5074b31c03d1.ngrok.io",
+    "privacyUrl": "https://5074b31c03d1.ngrok.io/privacy.html",
+    "termsOfUseUrl": "https://5074b31c03d1.ngrok.io/tou.html"
   },
   "icons": {
     "color": "icon-color.png",
@@ -26,7 +26,7 @@
   "accentColor": "#D85028",
   "configurableTabs": [
     {
-      "configurationUrl": "https://af630d50cb3d.ngrok.io/loanManagerTab/config.html?name={loginHint}&tenant={tid}&group={groupId}&theme={theme}",
+      "configurationUrl": "https://5074b31c03d1.ngrok.io/loanManagerTab/config.html?name={loginHint}&tenant={tid}&group={groupId}&theme={theme}",
       "canUpdateConfiguration": true,
       "scopes": [
         "team",
@@ -45,7 +45,7 @@
     {
       "entityId": "11f235d0-66fc-11eb-aa24-ebd8fcacd213",
       "name": "Loan Manager Bot",
-      "contentUrl": "https://af630d50cb3d.ngrok.io/loanManagerBot/loanManagerBot.html",
+      "contentUrl": "https://5074b31c03d1.ngrok.io/loanManagerBot/loanManagerBot.html",
       "scopes": [
         "personal"
       ]
@@ -118,18 +118,18 @@
           ],
           "parameters": [
             {
-              "name": "applicationId",
+              "name": "documentId",
               "title": "Application Id",
-              "description": "Unique id associated with an existing application",
+              "description": "Application Id",
               "inputType": "text"
             }
           ]
         },
         {
-          "id": "getUser",
+          "id": "lookupApplication",
           "type": "query",
-          "title": "Look up a user",
-          "description": "Get a snapshot of a user using an id",
+          "title": "Look Application",
+          "description": "Find an application by the id",
           "initialRun": true,
           "fetchTask": false,
           "context": [
@@ -138,9 +138,9 @@
           ],
           "parameters": [
             {
-              "name": "userId",
-              "title": "User ID",
-              "description": "Unique id associated with a user",
+              "name": "applicationId",
+              "title": "Application ID",
+              "description": "Application Id",
               "inputType": "text"
             }
           ]
@@ -153,6 +153,6 @@
     "messageTeamMembers"
   ],
   "validDomains": [
-    "af630d50cb3d.ngrok.io"
+    "5074b31c03d1.ngrok.io"
   ]
 }

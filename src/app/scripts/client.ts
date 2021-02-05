@@ -12,5 +12,5 @@ export * from "./loanManagerTab/LoanManagerTabConfig";
 export * from "./loanManagerTab/LoanManagerTabRemove";
 // Automatically added for the loanManagerBot bot tab
 export * from "./loanManagerBot/LoanManagerBotTab";
-// Automatically added for the loanManagerMessageExtension message extension
-export * from "./loanManagerMessageExtension/LoanManagerMessageExtensionConfig";
+// Automatically added for the lookupApplicationMessageExtension message extension
+export * from "./lookupApplicationMessageExtension/LookupApplicationMessageExtensionConfig";
