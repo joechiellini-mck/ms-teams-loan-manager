@@ -1,14 +1,15 @@
 import { BotDeclaration, PreventIframe, BotCallingWebhook, MessageExtensionDeclaration } from "express-msteams-host";
 import * as debug from "debug";
 import { DialogSet, DialogState } from "botbuilder-dialogs";
-import { StatePropertyAccessor, CardFactory, TurnContext, MemoryStorage, ConversationState, ActivityTypes, TeamsActivityHandler } from "botbuilder";
+import { StatePropertyAccessor, CardFactory, TurnContext, MemoryStorage, ConversationState, ActivityTypes, TeamsActivityHandler, BotFrameworkAdapter } from "botbuilder";
 import HelpDialog from "./dialogs/HelpDialog";
-import RequestApprovalMessageExtension from "../requestApprovalMessageExtension/RequestApprovalMessageExtension";
+import LoanManagerMessageExtension from "../LoanManagerMessageExtension/LoanManagerMessageExtension";
 import WelcomeCard from "./dialogs/WelcomeDialog";
 import express = require("express");
+import { MessagingExtensionMiddleware } from "botbuilder-teams-messagingextensions";
 // Initialize debug logging module
 const log = debug("msteams");
-console.log(process.env.MICROSOFT_APP_ID);
+
 /**
  * Implementation for Loan Manager Bot
  */
@@ -20,9 +21,9 @@ console.log(process.env.MICROSOFT_APP_ID);
 @PreventIframe("/loanManagerBot/loanManagerBot.html")
 export class LoanManagerBot extends TeamsActivityHandler {
     private readonly conversationState: ConversationState;
-    /** Local property for RequestApprovalMessageExtension */
-    @MessageExtensionDeclaration("requestApprovalMessageExtension")
-    private _requestApprovalMessageExtension: RequestApprovalMessageExtension;
+    /** Local property for LoanManagerMessageExtension */
+    @MessageExtensionDeclaration("getUser")
+    private _loanManagerMessageExtension: LoanManagerMessageExtension;
     private readonly dialogs: DialogSet;
     private dialogState: StatePropertyAccessor<DialogState>;
 
@@ -32,9 +33,8 @@ export class LoanManagerBot extends TeamsActivityHandler {
      */
     public constructor(conversationState: ConversationState) {
         super();
-        // Message extension RequestApprovalMessageExtension
-        this._requestApprovalMessageExtension = new RequestApprovalMessageExtension();
-
+        // Message extension LoanManagerMessageExtension
+        this._loanManagerMessageExtension = new LoanManagerMessageExtension();
 
         this.conversationState = conversationState;
         this.dialogState = conversationState.createProperty("dialogState");
@@ -59,6 +59,9 @@ export class LoanManagerBot extends TeamsActivityHandler {
                         await context.sendActivity(`I\'m terribly sorry, but my developer hasn\'t trained me to do anything yet...`);
                     }
                     break;
+                // case ActivityTypes.Invoke:
+                //     this._loanManagerMessageExtension.onQuery(context, );
+                //     break;
                 default:
                     break;
             }

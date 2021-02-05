@@ -6,9 +6,9 @@ import { useTeams } from "msteams-react-base-component";
 
 
 /**
- * Implementation of the Request Approval configuration page
+ * Implementation of the Loan Manager configuration page
  */
-export const RequestApprovalMessageExtensionConfig = () => {
+export const LoanManagerMessageExtensionConfig = () => {
 
     const [{ inTeams, theme }] = useTeams();
     const [onOrOff, setOnOrOff] = useState<boolean>();
@@ -25,7 +25,7 @@ export const RequestApprovalMessageExtensionConfig = () => {
             <Flex fill={true}>
                 <Flex.Item>
                     <div>
-                        <Header content="Request Approval configuration" />
+                        <Header content="Loan Manager configuration" />
                         <Checkbox
                             label="On or off?"
                             toggle
