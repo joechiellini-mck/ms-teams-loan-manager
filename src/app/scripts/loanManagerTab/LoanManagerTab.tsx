@@ -24,6 +24,8 @@ const getUser = (uuid: string): Person | undefined => {
 export const LoanManagerTab = () => {
   const [{ inTeams, theme, context }] = useTeams();
   const [entityId, setEntityId] = useState<string | undefined>();
+  const [subEntityId, setSubEntityId] = useState<string>("");
+  const queryParams = new URLSearchParams(window.location.search);
 
   useEffect(() => {
     if (inTeams === true) {
@@ -36,11 +38,22 @@ export const LoanManagerTab = () => {
   useEffect(() => {
     if (context) {
       setEntityId(context.entityId);
+      console.log(context);
+    }
+    if (context?.subEntityId) {
+      setSubEntityId(context.subEntityId);
+    } else if (queryParams.get("application")) {
+      setSubEntityId(queryParams.get("application")!);
     }
   }, [context]);
 
-  const queryParams: any = new URLSearchParams(window.location.search);
-  const person = getUser(queryParams.get("application"));
+  if (context?.meetingId) {
+    return <div>In meeting</div>;
+  } else if (context?.subEntityId) {
+    return <div>Looking at one application</div>;
+  }
+
+  const person = getUser(subEntityId);
 
   let content: React.ReactNode = null;
   if (person) {
@@ -48,11 +61,13 @@ export const LoanManagerTab = () => {
   } else {
     content = <ApplicationsTable />;
   }
+
   /**
    * The render() method to create the UI of the tab
    */
   return (
     <Provider theme={theme}>
+      {JSON.stringify(context)}
       <Flex column fill={true}>
         <Segment
           color="brand"

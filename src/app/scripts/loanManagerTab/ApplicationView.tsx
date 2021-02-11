@@ -1,11 +1,10 @@
 import * as React from "react";
 import {
-  ExcelColorIcon,
   WordColorIcon,
   Attachment,
-  PowerPointColorIcon,
   Card,
   Flex,
+  Button,
   Avatar,
   Text,
   CardHeader,
@@ -15,18 +14,26 @@ import {
   FilesPdfIcon,
 } from "@fluentui/react-northstar";
 import { Person, formatName } from "../../state";
+import { shareDeepLink } from "@microsoft/teams-js";
 
 interface IApplicationViewProps {
   person: Person;
 }
 
 const ApplicationView = (props: IApplicationViewProps) => {
+  const onCopy = () => {
+    shareDeepLink({
+      subEntityId: encodeURI(props.person.login.uuid),
+      subEntityLabel: formatName(props.person.name),
+    });
+  };
   return (
     <Grid columns="repeat(2, 1fr)">
       <Segment
         content={
           <div>
             <Header as="h3" content="Contact" />
+            <Button onClick={onCopy}>Copy link</Button>
             <Card>
               <CardHeader>
                 <Flex gap="gap.small">

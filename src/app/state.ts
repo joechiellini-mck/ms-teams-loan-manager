@@ -22,6 +22,15 @@ export interface Person {
     thumbnail: string;
   };
   nat: string;
+  login: {
+    uuid: string;
+    username: string;
+    password: string;
+    salt: string;
+    md5: string;
+    sha1: string;
+    sha256: string;
+  };
 }
 
 export interface Location {

@@ -46,6 +46,7 @@ export const LoanManagerTabConfig = () => {
             <Header content="Configure your tab" />
             <Input
               placeholder="Enter a value here"
+              defaultValue={"6f6b9cc0-66fb-11eb-aa24-ebd8fcacd213"}
               fluid
               clearable
               value={customSetting}
